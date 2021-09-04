@@ -49,7 +49,8 @@ def average(num):
 	
 	return avg
 	
-	
+#Print Averages
+
 average_temp = average(temperatures)
 average_press = average(pressures)
 average_humid = average(humidities)
