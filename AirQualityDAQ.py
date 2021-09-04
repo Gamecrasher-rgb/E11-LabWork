@@ -8,7 +8,6 @@ import csv
 import numpy as np
 
 
-
 start_time = time.time()
 run_time = 10
 stop_time = start_time + run_time
