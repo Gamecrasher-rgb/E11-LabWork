@@ -49,9 +49,6 @@ while current_time < stop_time:
 	port = serial.Serial("/dev/serial0", baudrate=9600, timeout=1.5)
 	text = port.read(32)
 	
-	current_time = time.time()
-	times.append(current_time)
-	
 	pmtemp1 = int.from_bytes(text[4:6], byteorder='big')
 	pm1.append(pmtemp1)
 	
