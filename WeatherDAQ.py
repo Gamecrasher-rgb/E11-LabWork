@@ -54,13 +54,13 @@ while current_time < run_time + start_time:
 	port = serial.Serial("/dev/serial0", baudrate=9600, timeout=1.5)
 	text = port.read(32)
 	
-	pmtemp1 = int.from_bytes(text[4:6], byteorder='big')
+	pmtemp1 = int.from_bytes(text[4:7], byteorder='big')
 	pm1.append(pmtemp1)
 	
-	pmtemp25 = int.from_bytes(text[5:7], byteorder='big')
+	pmtemp25 = int.from_bytes(text[7:11], byteorder='big')
 	pm25.append(pmtemp25)
 	
-	pmtemp10 = int.from_bytes(text[8:10], byteorder='big')
+	pmtemp10 = int.from_bytes(text[13:16], byteorder='big')
 	pm10.append(pmtemp10)
 
 	time.sleep(0.5)
