@@ -4,6 +4,7 @@
 # - Look up Adafruit CircuitPyhton BME280 module
 # - update code to use that module
 
+import serial
 import time
 import board
 from adafruit_bme280 import basic as adafruit_bme280
@@ -20,6 +21,9 @@ temperatures = []
 pressures = []
 humidities = []
 times = []
+pm1 = []
+pm25 = []
+pm10 = []
 
 bme280.sea_level_pressure = 1013.25
 
@@ -42,6 +46,21 @@ while current_time < stop_time:
 	humid = bme280.relative_humidity
 	humidities.append(humid)
 	
+	port = serial.Serial("/dev/serial0", baudrate=9600, timeout=1.5)
+	text = port.read(32)
+	
+	current_time = time.time()
+	times.append(current_time)
+	
+	pmtemp1 = int.from_bytes(text[4:6], byteorder='big')
+	pm1.append(pmtemp1)
+	
+	pmtemp25 = int.from_bytes(text[5:7], byteorder='big')
+	pm25.append(pmtemp25)
+	
+	pmtemp10 = int.from_bytes(text[8:10], byteorder='big')
+	pm10.append(pmtemp10)
+
 	time.sleep(1)
 
 #Made a function to calulcate average
@@ -72,13 +91,13 @@ i = 0
 
 with file:
     # identifying header  
-    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','Air Quality']
+    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','Air Quality','pm1', 'pm2.5', 'pm10']
     writer = csv.DictWriter(file, fieldnames = header)
     writer.writeheader()
      #writing data row-wise into the csv file
   	
     while i < length:
-	    writer.writerow({'Time (Unix)':times_int[i],'Temperatures(Celsius)':temperatures[i],'Pressure(Hectopascals)':pressures[i],'Humidity':humidities[i],'Air Quality':text[2]})
+	    writer.writerow({'Time (Unix)':times_int[i],'Temperatures(Celsius)':temperatures[i],'Pressure(Hectopascals)':pressures[i],'Humidity':humidities[i],'pm1':pm1[i],'pm2.5':pm25[i],'pm10':pm10[i]})
 	    i+=1
 						
 
