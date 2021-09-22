@@ -58,7 +58,7 @@ while current_time < stop_time:
 	pmtemp10 = int.from_bytes(text[8:10], byteorder='big')
 	pm10.append(pmtemp10)
 
-	time.sleep(1)
+	time.sleep(0.5)
 
 #Made a function to calulcate average
 def average(num):
@@ -88,7 +88,7 @@ i = 0
 
 with file:
     # identifying header  
-    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','Air Quality','pm1', 'pm2.5', 'pm10']
+    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','Air Quality','pm1','pm2.5','pm10']
     writer = csv.DictWriter(file, fieldnames = header)
     writer.writeheader()
      #writing data row-wise into the csv file
