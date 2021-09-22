@@ -93,7 +93,7 @@ i = 0
 
 with file:
     # identifying header  
-    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','Air Quality','pm1','pm2.5','pm10']
+    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','pm1','pm2.5','pm10']
     writer = csv.DictWriter(file, fieldnames = header)
     writer.writeheader()
      #writing data row-wise into the csv file
