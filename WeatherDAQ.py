@@ -11,6 +11,7 @@ from adafruit_bme280 import basic as adafruit_bme280
 import math
 import csv
 import numpy as np
+import sys
 
 
 
@@ -27,13 +28,17 @@ pm10 = []
 
 bme280.sea_level_pressure = 1013.25
 
+if len(sys.argv) > 1:
+  run_time = int(sys.argv[1])
+  if len(sys.argv) > 2:
+    sleep_time = int(sys.argv[2])
+
 start_time = time.time()
-run_time = 10
 stop_time = start_time + run_time
 current_time = time.time()
 
 
-while current_time < stop_time: 
+while current_time < run_time + start_time: 
 	
 	temp = bme280.temperature
 	current_time = time.time()
