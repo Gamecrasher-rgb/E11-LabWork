@@ -2,7 +2,6 @@
 import serial
 import time
 import board
-from adafruit_bme280 import basic as adafruit_bme280
 import math
 import csv
 import numpy as np
