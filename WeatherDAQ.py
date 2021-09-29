@@ -28,8 +28,7 @@ pm10 = []
 
 bme280.sea_level_pressure = 1013.25
 
-if len(sys.argv) > 1:
-  run_time = int(sys.argv[1])
+run_time = int(input("How long should the program run for:"))
 
 start_time = time.time()
 stop_time = start_time + run_time
