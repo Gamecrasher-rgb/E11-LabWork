@@ -40,9 +40,10 @@ current_time = time.time()
 
 while current_time < run_time + start_time: 
 	
-	temp = bme280.temperature
 	current_time = time.time()
 	times.append(current_time)
+
+	temp = bme280.temperature
 	temperatures.append(temp)
 	
 	press = bme280.pressure
