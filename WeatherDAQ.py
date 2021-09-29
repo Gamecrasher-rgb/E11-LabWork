@@ -12,6 +12,7 @@ import math
 import csv
 import numpy as np
 import sys
+import datetime
 
 
 
@@ -87,8 +88,13 @@ print('The average temperature is', average_temp)
 print('The average pressure is', average_press)
 print('The average humidity is', average_humid)
 
+date = str(datetime.datetime.now())
+def remove(string):
+    return string.replace(" ", "")
+date = remove(date)
+filename = 'SensorData' + date + '.csv'
 
-file = open('SensorDataInside.csv', 'w')
+file = open(filename, 'w')
 
 length = len(times)
 i = 0
