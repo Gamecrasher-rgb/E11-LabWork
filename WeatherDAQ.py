@@ -94,7 +94,7 @@ print('The average humidity is', average_humid)
 
 date = str(datetime.datetime.now())
 def remove(string):
-    return string.replace(" ", "")
+    return string.replace(" ", "-")
 date = remove(date)
 filename = 'SensorData' + date + '.csv'
 
