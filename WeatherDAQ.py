@@ -87,10 +87,10 @@ print('The average temperature is', average_temp)
 print('The average pressure is', average_press)
 print('The average humidity is', average_humid)
 
-file = open('SensorData.csv', 'w')
+
+file = open('SensorDataInside.csv', 'w')
 
 length = len(times)
-print(length)
 i = 0
 
 with file:
@@ -103,6 +103,4 @@ with file:
     while i < length:
 	    writer.writerow({'Time (Unix)':times_int[i],'Temperatures(Celsius)':temperatures[i],'Pressure(Hectopascals)':pressures[i],'Humidity':humidities[i],'pm1':pm1[i],'pm2.5':pm25[i],'pm10':pm10[i]})
 	    i+=1
-						
-
- 
+				
