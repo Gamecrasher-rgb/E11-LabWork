@@ -37,6 +37,10 @@ current_time = time.time()
 
 sleep_time = float(input("How long should the sleep be between each data grab: "))
 
+ready_time = int(input("In how much time are you ready (in minutes): "))
+ready_time = 60*ready_time
+time.sleep(ready_time)
+
 while current_time < run_time + start_time: 
 	
 	current_time = time.time()
