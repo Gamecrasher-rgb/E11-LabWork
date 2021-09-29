@@ -30,13 +30,12 @@ bme280.sea_level_pressure = 1013.25
 
 if len(sys.argv) > 1:
   run_time = int(sys.argv[1])
-  if len(sys.argv) > 2:
-    sleep_time = int(sys.argv[2])
 
 start_time = time.time()
 stop_time = start_time + run_time
 current_time = time.time()
 
+sleep_time = float(input("How long should the sleep be between each data grab:"))
 
 while current_time < run_time + start_time: 
 	
@@ -64,7 +63,7 @@ while current_time < run_time + start_time:
 	pmtemp10 = int.from_bytes(text[8:10], byteorder='big')
 	pm10.append(pmtemp10)
 
-	time.sleep(0.5)
+	time.sleep(sleep_time)
 
 #Made a function to calulcate average
 def average(num):
@@ -77,6 +76,9 @@ def average(num):
 average_temp = average(temperatures)
 average_press = average(pressures)
 average_humid = average(humidities)
+average_pm1 = average(pm1)
+average_pm25 = average(pm25)
+average_pm10 = average(pm10)
 
 times_int = []
 
