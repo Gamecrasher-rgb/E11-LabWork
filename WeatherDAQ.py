@@ -92,11 +92,13 @@ print('The average temperature is', average_temp)
 print('The average pressure is', average_press)
 print('The average humidity is', average_humid)
 
-date = str(datetime.datetime.now())
+dateCreation = dt.datetime.now()
+print(dateCreation)
+dateCreation = str(dateCreation.replace(microsecond = 0))
 def remove(string):
-    return string.replace(" ", "-")
-date = remove(date)
-filename = 'SensorData' + date + '.csv'
+    return string.replace(" ", "--")
+date = remove(dateCreation)
+filename = 'SensorData--' + date + '.csv'
 
 file = open(filename, 'w')
 
