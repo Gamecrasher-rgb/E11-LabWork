@@ -29,11 +29,13 @@ pm10 = []
 
 bme280.sea_level_pressure = 1013.25
 
+run_time = int(input("How long should the program run for: "))
+
+sleep_time = float(input("How long should the sleep be between each data grab: "))
+
 ready_time = int(input("In how much time are you ready (in minutes): "))
 ready_time = 60*ready_time
 time.sleep(ready_time)
-
-run_time = int(input("How long should the program run for: "))
 
 start_time = time.time()
 stop_time = start_time + run_time
