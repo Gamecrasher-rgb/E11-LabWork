@@ -17,4 +17,5 @@ os.system(execommand)
 os.system(execommand2)
 print("Hopefully your colors are fixed now!")
 input("Press enter to exit :)")
-os.system(r'exit')
+execommand3 = r"exit"
+os.system(execommand3)
