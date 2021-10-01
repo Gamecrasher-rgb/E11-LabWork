@@ -29,6 +29,10 @@ pm10 = []
 
 bme280.sea_level_pressure = 1013.25
 
+ready_time = int(input("In how much time are you ready (in minutes): "))
+ready_time = 60*ready_time
+time.sleep(ready_time)
+
 run_time = int(input("How long should the program run for: "))
 
 start_time = time.time()
@@ -36,10 +40,6 @@ stop_time = start_time + run_time
 current_time = time.time()
 
 sleep_time = float(input("How long should the sleep be between each data grab: "))
-
-ready_time = int(input("In how much time are you ready (in minutes): "))
-ready_time = 60*ready_time
-time.sleep(ready_time)
 
 while current_time < run_time + start_time: 
 	
@@ -98,6 +98,7 @@ dateCreation = str(dateCreation.replace(microsecond = 0))
 def remove(string):
     return string.replace(" ", "--")
 date = remove(dateCreation)
+
 filename = 'SensorData--' + date + '.csv'
 
 file = open(filename, 'w')
