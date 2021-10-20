@@ -31,6 +31,7 @@ try:
     
     
 finally:                   # this block will run no matter how the try block exits  
-    print ("The average counts per minute was: ", averageCPM)
+    print ("The average counts per second each minute was: ", averageCPM)
+
     GPIO.cleanup() 
 
