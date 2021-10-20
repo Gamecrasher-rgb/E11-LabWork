@@ -7,7 +7,7 @@ try:
     while True:  
         GPIO.output(17, 1)         # set GPIO24 to 1/GPIO.HIGH/True  
         sleep(0.5)                 # wait half a second  
-        GPIO.output(24, 0)         # set GPIO24 to 0/GPIO.LOW/False  
+        GPIO.output(17, 0)         # set GPIO24 to 0/GPIO.LOW/False  
         sleep(0.5)                 # wait half a second  
   
 except KeyboardInterrupt:          # trap a CTRL+C keyboard interrupt  
