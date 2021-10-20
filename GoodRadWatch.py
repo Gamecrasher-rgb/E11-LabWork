@@ -11,12 +11,10 @@ def callBack(channel):
     if GPIO.input(17):     # if port 17 == 1  
         print ("Count Detected!") 
         counts =+ 1 
-    else:                  # if port 17 != 1  
-        print ("Count Gone...")  
 
 GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack)  
     
-input("Press Enter when ready\n>")  
+#input("Press Enter when ready\n>")  
   
 try:  
     print ("When pressed, you'll see: Rising Edge detected on 25")  
