@@ -20,20 +20,20 @@ def my_callback(channel):
 # else is happening in the program, the function my_callback will be run  
 GPIO.add_event_detect(25, GPIO.BOTH, callback=my_callback)  
   
-print "Program will finish after 30 seconds or if you press CTRL+C\n"  
-print "Make sure you have a button connected, pulled down through 10k resistor"  
-print "to GND and wired so that when pressed it connects"  
-print "GPIO port 25 (pin 22) to GND (pin 6) through a ~1k resistor\n"  
+print ("Program will finish after 30 seconds or if you press CTRL+C\n")  
+print ("Make sure you have a button connected, pulled down through 10k resistor")  
+print ("to GND and wired so that when pressed it connects")  
+print ("GPIO port 25 (pin 22) to GND (pin 6) through a ~1k resistor\n")  
   
-print "Also put a 100 nF capacitor across your switch for hardware debouncing"  
-print "This is necessary to see the effect we're looking for"  
+print ("Also put a 100 nF capacitor across your switch for hardware debouncing" ) 
+print ("This is necessary to see the effect we're looking for")  
 raw_input("Press Enter when ready\n>")  
   
 try:  
-    print "When pressed, you'll see: Rising Edge detected on 25"  
-    print "When released, you'll see: Falling Edge detected on 25"  
+    print ("When pressed, you'll see: Rising Edge detected on 25")  
+    print ("When released, you'll see: Falling Edge detected on 25" ) 
     sleep(30)         # wait 30 seconds  
-    print "Time's up. Finished!"  
+    print ("Time's up. Finished!" ) 
   
 finally:                   # this block will run no matter how the try block exits  
     GPIO.cleanup()  
