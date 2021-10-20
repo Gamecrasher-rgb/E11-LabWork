@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO  
 import time
+import sys
 
 GPIO.setmode(GPIO.BCM)   
 GPIO.setup(17, GPIO.IN)
@@ -13,25 +14,22 @@ def callBack(channel):
         counts += 1
 
 GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack)  
-    
-#input("Press Enter when ready\n>")  
   
 try:  
     print ("When pressed, you'll see: Rising Edge detected on 25")  
     print ("When released, you'll see: Falling Edge detected on 25" ) 
-    #run_time = int(input("How long should the program run for: "))
 
-    #sleep_time = float(input("How long should the sleep be between each data grab: "))
-
-    ready_time = int(input("In how much time are you ready (in minutes): "))
-    ready_time = 60*ready_time
-    time.sleep(ready_time)
-
-    #start_time = time.time()
-    #stop_time = start_time + run_time
-    #current_time = time.time()     
+    sleep_time = int(input(sys.argv))
+    i = 0
+    while i < sleep_time:
+        time.sleep(60)
+        i+=1
+        averageCPM = []
+        averageCPM.append(counts/60)
+        counts = 0
+    
     
 finally:                   # this block will run no matter how the try block exits  
-    print ("The average counts per minute was", counts / (ready_time/60))
+    print ("The average counts per minute was:", averageCPM)
     GPIO.cleanup() 
 
