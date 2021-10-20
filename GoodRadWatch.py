@@ -10,7 +10,7 @@ def callBack(channel):
     global counts
     if GPIO.input(17):     # if port 17 == 1  
         print ("Count Detected!") 
-        counts =+ 1 
+        counts = counts + 1
 
 GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack)  
     
