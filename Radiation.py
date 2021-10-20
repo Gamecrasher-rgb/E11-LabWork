@@ -1,31 +1,14 @@
-import time
-import datetime
-import RPI.GPIO as GPIO
-
-def Int21R( channel ):
-  global Count
-
-  Count += 1
-  GPIO.output( 20, GPIO.HIGH )
-  time.sleep( 0.000001 )
-  GPIO.output( 20, GPIO.LOW )
-
-
-GPIO.setwarnings(False)
-GPIO.setmode( GPIO.BCM )
-
-GPIO.setup( 20, GPIO.OUT )
-GPIO.setup( 21, GPIO.IN, pull_up_down = GPIO.PUD_OFF )
-GPIO.add_event_detect( 21, GPIO.RISING, callback = Int21R )
-
-Count = 0
-while True:
-  Time = datetime.datetime.now()
-  print( "%s - Count = %6d  RPM = %6d" % ( Time, Count, Count * 60.0 ) )
-  RPM = Count * 60.0
-  Count = 0
-  t = time.time( )
-  Wait = 1 - ( t - int( t ) )
-  time.sleep( Wait )
-
-GPIO.cleanup( )
+import RPi.GPIO as GPIO            # import RPi.GPIO module  
+from time import sleep             # lets us have a delay  
+GPIO.setmode(GPIO.BCM)             # choose BCM or BOARD  
+GPIO.setup(17, GPIO.OUT)           # set GPIO24 as an output   
+  
+try:  
+    while True:  
+        GPIO.output(17, 1)         # set GPIO24 to 1/GPIO.HIGH/True  
+        sleep(0.5)                 # wait half a second  
+        GPIO.output(24, 0)         # set GPIO24 to 0/GPIO.LOW/False  
+        sleep(0.5)                 # wait half a second  
+  
+except KeyboardInterrupt:          # trap a CTRL+C keyboard interrupt  
+    GPIO.cleanup()                 # resets all GPIO ports used by this program  
