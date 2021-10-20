@@ -27,7 +27,5 @@ while True:
   t = time.time( )
   Wait = 1 - ( t - int( t ) )
   time.sleep( Wait )
-except KeyboardInterrupt:
-  GPIO.cleanup( )
 
 GPIO.cleanup( )
