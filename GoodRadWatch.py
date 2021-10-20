@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO  
 import time
 import sys
+import numpy as np
 
 GPIO.setmode(GPIO.BCM)   
 GPIO.setup(17, GPIO.IN)
@@ -19,17 +20,17 @@ try:
     print ("When pressed, you'll see: Rising Edge detected on 25")  
     print ("When released, you'll see: Falling Edge detected on 25" ) 
 
-    sleep_time = int(input("How long should the program run for:"))
+    sleep_time = int(input("How long should the program run for: "))
     i = 0
+    averageCPM = []
     while i < sleep_time:
         time.sleep(60)
         i+=1
-        averageCPM = []
         averageCPM.append(counts/60)
         counts = 0
     
     
 finally:                   # this block will run no matter how the try block exits  
-    print ("The average counts per minute was:", averageCPM)
+    print ("The average counts per minute was: ", averageCPM)
     GPIO.cleanup() 
 
