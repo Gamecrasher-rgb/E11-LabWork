@@ -31,7 +31,6 @@ try:
     #stop_time = start_time + run_time
     #current_time = time.time()     
     
-    counts = 0
 finally:                   # this block will run no matter how the try block exits  
     print ("The average counts per minute was", counts / (ready_time/60))
     GPIO.cleanup() 
