@@ -4,6 +4,7 @@
 # - Look up Adafruit CircuitPyhton BME280 module
 # - update code to use that module
 
+#region imports
 import serial
 import time
 import board
@@ -13,7 +14,7 @@ import csv
 import numpy as np
 import sys
 import datetime as dt
-
+#endregion imports
 
 
 i2c = board.I2C()
