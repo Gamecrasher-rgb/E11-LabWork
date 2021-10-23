@@ -20,7 +20,7 @@ try:
     print ("When pressed, you'll see: Rising Edge detected on 25")  
     print ("When released, you'll see: Falling Edge detected on 25" ) 
 
-    sleep_time = int(sys.argv)
+    sleep_time = int(sys.argv[0])
     i = 0
     averageCPM = []
     while i < sleep_time:
