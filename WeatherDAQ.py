@@ -1,8 +1,4 @@
-#Measures temperature, humidity, pressure
-# BME280 - Adafruit#000000
-#Write the data to a file - a time column, temperature, humidity, and pressure
-# - Look up Adafruit CircuitPyhton BME280 module
-# - update code to use that module
+#Measures Temperature, Humidity, Pressure, Air Quality, and Radiation
 
 #region imports
 import serial
