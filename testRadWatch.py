@@ -41,7 +41,7 @@ ready_time = 60*ready_time
 time.sleep(ready_time)
 
 start_time = time.time()
-stop_time = start_time + run_time
+stop_time = start_time + (run_time*60)
 current_time = time.time()
 
 GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack) 
@@ -50,7 +50,7 @@ averageCPS = 0
 listaverageCPS = []
 i = 0
 
-while current_time < run_time + start_time: 
+while current_time < run_time*60 + start_time: 
 
 	current_time = time.time()
 	times.append(current_time)
