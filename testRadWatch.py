@@ -33,7 +33,7 @@ times = []
 
 run_time = int(input("How long should the program run for (in minutes): "))
 
-sleep_time = float(input("How long should the sleep be between each data grab: "))
+sleep_time = float(input("How long should the sleep be between each data grab(in minutes): "))
 
 ready_time = int(input("In how much time are you ready (in minutes): "))
 ready_time = 60*ready_time
@@ -55,7 +55,7 @@ while n < run_time:
 
     averageCPS = counts/(sleep_time*60)
     listaverageCPS.append(averageCPS)
-    time.sleep(sleep_time)
+    time.sleep(sleep_time*60)
     counts = 0
     n+=1
 
