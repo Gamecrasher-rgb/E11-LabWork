@@ -92,6 +92,8 @@ while current_time < run_time + start_time:
 
 	time.sleep(sleep_time)
 
+GPIO.cleanup()
+
 #Made a function to calulcate average
 def average(num):
 	

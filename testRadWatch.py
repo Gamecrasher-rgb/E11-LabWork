@@ -5,6 +5,7 @@
 # - update code to use that module
 
 #region imports
+from typing_extensions import runtime
 import serial
 import time
 import board
@@ -26,7 +27,6 @@ counts = 0
 def callBack(channel):  
     global counts
     if GPIO.input(17):     # if port 17 == 1  
-        print ("Count Detected!") 
         counts += 1
 
 times = []
@@ -48,18 +48,19 @@ GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack)
 
 averageCPS = 0
 listaverageCPS = []
-i = 0
+n = 0
 
-while current_time < run_time*60 + start_time: 
+while n < runtime: 
+    current_time = time.time()
+    times.append(current_time)
 
-	current_time = time.time()
-	times.append(current_time)
-	
-	averageCPS = counts/(sleep_time*60)
-	listaverageCPS.append(averageCPS)
-	counts = 0
+    averageCPS = counts/(sleep_time*60)
+    listaverageCPS.append(averageCPS)
+    time.sleep(sleep_time)
+    counts = 0
+    n+=1
 
-	time.sleep(sleep_time)
+GPIO.cleanup()
 
 #Made a function to calulcate average
 def average(num):
