@@ -5,7 +5,6 @@
 # - update code to use that module
 
 #region imports
-from typing_extensions import runtime
 import serial
 import time
 import board
@@ -50,7 +49,7 @@ averageCPS = 0
 listaverageCPS = []
 n = 0
 
-while n < runtime: 
+while n < run_time: 
     current_time = time.time()
     times.append(current_time)
 
