@@ -17,6 +17,10 @@ import datetime as dt
 import RPi.GPIO as GPIO  
 #endregion
 
+GPIO.setmode(GPIO.BCM)   
+GPIO.setup(17, GPIO.IN)
+
+
 counts = 0
 
 def callBack(channel):  
