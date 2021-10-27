@@ -20,7 +20,6 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)   
 GPIO.setup(17, GPIO.IN)
 
-
 counts = 0
 
 def callBack(channel):  
@@ -44,7 +43,7 @@ bme280.sea_level_pressure = 1013.25
 
 run_time = int(input("How long should the program run for (in minutes): "))
 
-sleep_time = float(input("How long should the sleep be between each data grab: "))
+sleep_time = float(input("How long should the sleep be between each data grab(in minutes): "))
 
 ready_time = int(input("In how much time are you ready (in minutes): "))
 ready_time = 60*ready_time
@@ -58,9 +57,10 @@ GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack)
 
 averageCPS = 0
 listaverageCPS = []
-i = 0
+n = 0
 
-while current_time < run_time + start_time: 
+while n < run_time: 
+	time.sleep(sleep_time*60)
 
 	current_time = time.time()
 	times.append(current_time)
@@ -89,8 +89,7 @@ while current_time < run_time + start_time:
 	averageCPS = counts/(sleep_time*60)
 	listaverageCPS.append(averageCPS)
 	counts = 0
-
-	time.sleep(sleep_time)
+	n+=1
 
 GPIO.cleanup()
 
