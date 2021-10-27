@@ -14,8 +14,16 @@ import csv
 import numpy as np
 import sys
 import datetime as dt
+import RPi.GPIO as GPIO  
 #endregion
 
+counts = 0
+
+def callBack(channel):  
+    global counts
+    if GPIO.input(17):     # if port 17 == 1  
+        print ("Count Detected!") 
+        counts += 1
 
 i2c = board.I2C()
 bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
@@ -30,7 +38,7 @@ pm10 = []
 
 bme280.sea_level_pressure = 1013.25
 
-run_time = int(input("How long should the program run for: "))
+run_time = int(input("How long should the program run for (in minutes): "))
 
 sleep_time = float(input("How long should the sleep be between each data grab: "))
 
@@ -42,9 +50,14 @@ start_time = time.time()
 stop_time = start_time + run_time
 current_time = time.time()
 
+GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack) 
+
+averageCPS = 0
+listaverageCPS = []
+i = 0
 
 while current_time < run_time + start_time: 
-	
+
 	current_time = time.time()
 	times.append(current_time)
 
@@ -68,6 +81,10 @@ while current_time < run_time + start_time:
 	
 	pmtemp10 = int.from_bytes(text[8:10], byteorder='big')
 	pm10.append(pmtemp10)
+	
+	averageCPS = counts/(sleep_time*60)
+	listaverageCPS.append(averageCPS)
+	counts = 0
 
 	time.sleep(sleep_time)
 
@@ -77,22 +94,12 @@ def average(num):
 	avg = sum(num)/len(num)
 	
 	return avg
-	
-#Print Averages
-average_temp = average(temperatures)
-average_press = average(pressures)
-average_humid = average(humidities)
-average_pm1 = average(pm1)
-average_pm25 = average(pm25)
-average_pm10 = average(pm10)
+
+print("Done!")
 
 times_int = []
 
 times_int = np.array(times, dtype='int')
-
-print('The average temperature is', average_temp)
-print('The average pressure is', average_press)
-print('The average humidity is', average_humid)
 
 dateCreation = dt.datetime.now()
 print(dateCreation)
@@ -110,12 +117,12 @@ i = 0
 
 with file:
     # identifying header  
-    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','pm1','pm2.5','pm10']
+    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','pm1','pm2.5','pm10','CPS']
     writer = csv.DictWriter(file, fieldnames = header)
     writer.writeheader()
      #writing data row-wise into the csv file
   	
     while i < length:
-	    writer.writerow({'Time (Unix)':times_int[i],'Temperatures(Celsius)':temperatures[i],'Pressure(Hectopascals)':pressures[i],'Humidity':humidities[i],'pm1':pm1[i],'pm2.5':pm25[i],'pm10':pm10[i]})
+	    writer.writerow({'Time (Unix)':times_int[i],'Temperatures(Celsius)':temperatures[i],'Pressure(Hectopascals)':pressures[i],'Humidity':humidities[i],'pm1':pm1[i],'pm2.5':pm25[i],'pm10':pm10[i],'CPS':listaverageCPS[i]})
 	    i+=1
 				
