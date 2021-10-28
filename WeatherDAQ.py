@@ -19,7 +19,7 @@ counts = 0
 
 def callBack(channel):  
     global counts
-    if GPIO.input(17):     # if port 17 == 1  
+    if GPIO.input(17):   
         counts += 1
 
 i2c = board.I2C()
@@ -113,11 +113,9 @@ length = len(times)
 i = 0
 
 with file:
-    # identifying header  
     header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','pm1','pm2.5','pm10','CPS','CPM']
     writer = csv.DictWriter(file, fieldnames = header)
     writer.writeheader()
-     #writing data row-wise into the csv file
   	
     while i < length:
 	    writer.writerow({'Time (Unix)':times_int[i],'Temperatures(Celsius)':temperatures[i],'Pressure(Hectopascals)':pressures[i],'Humidity':humidities[i],'pm1':pm1[i],'pm2.5':pm25[i],'pm10':pm10[i],'CPS':listaverageCPS[i],'CPM':listaverageCPM[i]})
