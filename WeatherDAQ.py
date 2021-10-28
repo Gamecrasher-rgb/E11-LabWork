@@ -51,8 +51,10 @@ current_time = time.time()
 
 GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack) 
 
+averageCPM = 0
 averageCPS = 0
 listaverageCPS = []
+listaverageCPM = []
 n = 0
 
 while n < run_time: 
@@ -82,19 +84,14 @@ while n < run_time:
 	pmtemp10 = int.from_bytes(text[8:10], byteorder='big')
 	pm10.append(pmtemp10)
 	
+	averageCPM = counts
 	averageCPS = counts/60
 	listaverageCPS.append(averageCPS)
+	listaverageCPM.append(averageCPM)
 	counts = 0
 	n+=1
 
 GPIO.cleanup()
-
-#Made a function to calulcate average
-def average(num):
-	
-	avg = sum(num)/len(num)
-	
-	return avg
 
 print("Done!")
 
@@ -118,12 +115,12 @@ i = 0
 
 with file:
     # identifying header  
-    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','pm1','pm2.5','pm10','CPS']
+    header = ['Time (Unix)', 'Temperatures(Celsius)', 'Pressure(Hectopascals)','Humidity','pm1','pm2.5','pm10','CPS','CPM']
     writer = csv.DictWriter(file, fieldnames = header)
     writer.writeheader()
      #writing data row-wise into the csv file
   	
     while i < length:
-	    writer.writerow({'Time (Unix)':times_int[i],'Temperatures(Celsius)':temperatures[i],'Pressure(Hectopascals)':pressures[i],'Humidity':humidities[i],'pm1':pm1[i],'pm2.5':pm25[i],'pm10':pm10[i],'CPS':listaverageCPS[i]})
+	    writer.writerow({'Time (Unix)':times_int[i],'Temperatures(Celsius)':temperatures[i],'Pressure(Hectopascals)':pressures[i],'Humidity':humidities[i],'pm1':pm1[i],'pm2.5':pm25[i],'pm10':pm10[i],'CPS':listaverageCPS[i],'CPM':listaverageCPM[i]})
 	    i+=1
 				
