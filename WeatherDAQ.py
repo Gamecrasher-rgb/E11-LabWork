@@ -5,7 +5,6 @@ import serial
 import time
 import board
 from adafruit_bme280 import basic as adafruit_bme280
-import math
 import csv
 import numpy as np
 import sys
@@ -21,7 +20,6 @@ counts = 0
 def callBack(channel):  
     global counts
     if GPIO.input(17):     # if port 17 == 1  
-        print ("Count Detected!") 
         counts += 1
 
 i2c = board.I2C()
@@ -37,11 +35,11 @@ pm10 = []
 
 bme280.sea_level_pressure = 1013.25
 
-run_time = int(input("How long should the program run for (in minutes): "))
+run_time = int(sys.argv[1])
 
-sleep_time = float(input("How long should the sleep be between each data grab(in minutes): "))
+sleep_time = float(sys.argv[2])
 
-ready_time = int(input("In how much time are you ready (in minutes): "))
+ready_time = int(sys.argv[3])
 ready_time = 60*ready_time
 time.sleep(ready_time)
 
@@ -100,13 +98,14 @@ times_int = []
 times_int = np.array(times, dtype='int')
 
 dateCreation = dt.datetime.now()
-print(dateCreation)
 dateCreation = str(dateCreation.replace(microsecond = 0))
 def remove(string):
     return string.replace(" ", "--")
 date = remove(dateCreation)
 
 filename = 'SensorData--' + date + '.csv'
+
+print("File Name:",filename)
 
 file = open(filename, 'w')
 
