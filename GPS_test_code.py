@@ -2,7 +2,7 @@ import time
 import board
 import busio
 
-import adafruit_gps
+import gps
 
 RX = board.RX
 TX = board.TX
