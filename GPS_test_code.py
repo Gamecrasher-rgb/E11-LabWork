@@ -36,7 +36,7 @@ if __name__ == '__main__':
     gpsc = GpsController() 
     try:
         # start controller
-        time.sleep(5)
+        time.sleep(5*60)
         gpsc.start()
         while True:
             print ("latitude ", gpsc.fix.latitude)
