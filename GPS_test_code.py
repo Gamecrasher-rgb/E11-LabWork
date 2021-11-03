@@ -1,22 +1,31 @@
-import gps
+import time
+import board
+import busio
 
-# Listen on port 2947 (gpsd) of localhost
-session = gps.gps("localhost", "2947")
-session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
+import adafruit_gps
 
+RX = board.RX
+TX = board.TX
+
+uart = busio.UART(TX, RX, baudrate=9600, timeout=30)
+
+gps = adafruit_gps.GPS(uart, debug=False)
+
+gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
+
+gps.send_command(b'PMTK220,1000')
+
+last_print = time.monotonic()
 while True:
-    try:
-        report = session.next()
-        # Wait for a 'TPV' report and display the current time
-        # To see all report data, uncomment the line below
-        # print(report)
-        if report['class'] == 'TPV':
-            if hasattr(report, 'time'):
-                print(report.time)
-    except KeyError:
-        pass
-    except KeyboardInterrupt:
-        quit()
-    except StopIteration:
-        session = None
-        print("GPSD has terminated")
+
+    gps.update()
+
+    current = time.monotonic()
+    if current - last_print >= 1.0:
+        last_print = current
+        if not gps.has_fix:
+            print('Waiting for fix...')
+            continue
+        print('=' * 40)  # Print a separator line.
+        print('Latitude: {0:.6f} degrees'.format(gps.latitude))
+        print('Longitude: {0:.6f} degrees'.format(gps.longitude))
