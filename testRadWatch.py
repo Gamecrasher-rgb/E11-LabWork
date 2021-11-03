@@ -1,15 +1,9 @@
-#Measures temperature, humidity, pressure
-# BME280 - Adafruit#000000
-#Write the data to a file - a time column, temperature, humidity, and pressure
-# - Look up Adafruit CircuitPyhton BME280 module
-# - update code to use that module
+#Measures Temperature, Humidity, Pressure, Air Quality, and Radiation
 
 #region imports
 import serial
 import time
 import board
-from adafruit_bme280 import basic as adafruit_bme280
-import math
 import csv
 import numpy as np
 import sys
@@ -20,53 +14,45 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)   
 GPIO.setup(17, GPIO.IN)
 
-
+times = []
 counts = 0
 
 def callBack(channel):  
     global counts
-    if GPIO.input(17):     # if port 17 == 1  
+    if GPIO.input(17):   
         counts += 1
 
-times = []
 
+run_time = int(sys.argv[1])
 
-run_time = int(input("How long should the program run for (in minutes): "))
+sleep_time = float(sys.argv[2])
 
-sleep_time = float(input("How long should the sleep be between each data grab(in minutes): "))
-
-ready_time = int(input("In how much time are you ready (in minutes): "))
+ready_time = int(sys.argv[3])
 ready_time = 60*ready_time
 time.sleep(ready_time)
 
 start_time = time.time()
-stop_time = start_time + (run_time*60)
+stop_time = start_time + run_time
 current_time = time.time()
 
 GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack) 
 
+averageCPM = 0
 averageCPS = 0
 listaverageCPS = []
+listaverageCPM = []
 n = 0
 
 while n < run_time: 
-    current_time = time.time()
-    times.append(current_time)
-
-    averageCPS = counts/(sleep_time*60)
-    listaverageCPS.append(averageCPS)
-    time.sleep(sleep_time*60)
-    counts = 0
-    n+=1
+	time.sleep(sleep_time*60)
+	averageCPM = counts
+	averageCPS = counts/60
+	listaverageCPS.append(averageCPS)
+	listaverageCPM.append(averageCPM)
+	counts = 0
+	n+=1
 
 GPIO.cleanup()
-
-#Made a function to calulcate average
-def average(num):
-	
-	avg = sum(num)/len(num)
-	
-	return avg
 
 print("Done!")
 
@@ -75,13 +61,14 @@ times_int = []
 times_int = np.array(times, dtype='int')
 
 dateCreation = dt.datetime.now()
-print(dateCreation)
 dateCreation = str(dateCreation.replace(microsecond = 0))
 def remove(string):
     return string.replace(" ", "--")
 date = remove(dateCreation)
 
-filename = 'SensorData--' + date + '.csv'
+filename = 'RadiationData--' + date + '.csv'
+
+print("File Name:",filename)
 
 file = open(filename, 'w')
 
@@ -89,13 +76,11 @@ length = len(times)
 i = 0
 
 with file:
-    # identifying header  
-    header = ['Time (Unix)','CPS']
+    header = ['Time (Unix)','CPS','CPM']
     writer = csv.DictWriter(file, fieldnames = header)
     writer.writeheader()
-     #writing data row-wise into the csv file
   	
     while i < length:
-	    writer.writerow({'Time (Unix)':times_int[i],'CPS':listaverageCPS[i]})
+	    writer.writerow({'Time (Unix)':times_int[i],'CPS':listaverageCPS[i],'CPM':listaverageCPM[i]})
 	    i+=1
 				
