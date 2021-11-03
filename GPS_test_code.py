@@ -1,31 +1,67 @@
+from gps import *
 import time
-import board
-import busio
+import threading
+import math
+import sys
 
-import gps
+class GpsController(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
+        self.running = False
+   
+    def run(self):
+        self.running = True
+        while self.running:
+            # grab EACH set of gpsd info to clear the buffer
+            self.gpsd.next()
 
-RX = board.RX
-TX = board.TX
+    def stopController(self):
+        self.running = False
+ 
+    @property
+    def fix(self):
+        return self.gpsd.fix
 
-uart = busio.UART(TX, RX, baudrate=9600, timeout=30)
+    @property
+    def utc(self):
+        return self.gpsd.utc
 
-gps = adafruit_gps.GPS(uart, debug=False)
+    @property
+    def satellites(self):
+        return self.gpsd.satellites
 
-gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
+if __name__ == '__main__':
+    # create the controller
+    gpsc = GpsController() 
+    try:
+        # start controller
+        gpsc.start()
+        while True:
+            print ("latitude ", gpsc.fix.latitude)
+            print ("longitude ", gpsc.fix.longitude)
+            print ("time utc ", gpsc.utc, " + ", gpsc.fix.time)
+            print ("altitude (m)", gpsc.fix.altitude)
+            print ("eps ", gpsc.fix.eps)
+            print ("epx ", gpsc.fix.epx)
+            print ("epv ", gpsc.fix.epv)
+            print ("ept ", gpsc.gpsd.fix.ept)
+            print ("speed (m/s) ", gpsc.fix.speed)
+            print ("climb ", gpsc.fix.climb)
+            print ("track ", gpsc.fix.track)
+            print ("mode ", gpsc.fix.mode)
+            print ("sats ", gpsc.satellites)
+            time.sleep(0.5)
 
-gps.send_command(b'PMTK220,1000')
+    #Error
+    except:
+        print ("Unexpected error:", sys.exc_info()[0])
+        raise
 
-last_print = time.monotonic()
-while True:
-
-    gps.update()
-
-    current = time.monotonic()
-    if current - last_print >= 1.0:
-        last_print = current
-        if not gps.has_fix:
-            print('Waiting for fix...')
-            continue
-        print('=' * 40)  # Print a separator line.
-        print('Latitude: {0:.6f} degrees'.format(gps.latitude))
-        print('Longitude: {0:.6f} degrees'.format(gps.longitude))
+    finally:
+        print ("Stopping gps controller")
+        gpsc.stopController()
+        #wait for the tread to finish
+        gpsc.join()
+     
+    print ("Done")
