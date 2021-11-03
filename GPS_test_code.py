@@ -36,7 +36,6 @@ if __name__ == '__main__':
     gpsc = GpsController() 
     try:
         # start controller
-        time.sleep(5*60)
         gpsc.start()
         while True:
             print ("latitude ", gpsc.fix.latitude)
@@ -52,13 +51,13 @@ if __name__ == '__main__':
             print ("track ", gpsc.fix.track)
             print ("mode ", gpsc.fix.mode)
             print ("sats ", gpsc.satellites)
-            time.sleep(30)
-            exit()
+            time.sleep(0.5)
 
     #Error
     except:
         print ("Unexpected error:", sys.exc_info()[0])
         raise
+
     finally:
         print ("Stopping gps controller")
         gpsc.stopController()
