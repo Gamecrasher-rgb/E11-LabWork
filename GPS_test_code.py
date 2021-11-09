@@ -12,7 +12,8 @@ while True:
         print(report)
         if report['class'] == 'TPV':
             if hasattr(report, 'time'):
-                print(report.time)
+                print("Latitude:",report.lat)
+                print("Longitude:",report.lon)
     except KeyError:
         pass
     except KeyboardInterrupt:
