@@ -13,6 +13,7 @@ while True:
             if hasattr(report, 'time'):
                 print("Latitude:",report.lat)
                 print("Longitude:",report.lon)
+                print("Time:",report.time)
     except KeyError:
         pass
     except KeyboardInterrupt:
