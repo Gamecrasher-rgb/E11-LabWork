@@ -2,6 +2,8 @@ import gps
 import os
 
 # Listen on port 2947 (gpsd) of localhost
+os.system(r"sudo killall gpsd")
+os.system(r"sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock")
 session = gps.gps("localhost", "2947")
 session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
 menu = int(input("1. Print Latitude, Longitude, and Time\n2. Menu Screen\n"))
