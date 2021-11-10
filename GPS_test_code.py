@@ -5,6 +5,7 @@ import os
 session = gps.gps("localhost", "2947")
 session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
 menu = int(input("1. Print Latitude, Longitude, and Time\n2. Menu Screen\n"))
+print("\n")
 while True:
     try:
         report = session.next()
@@ -12,14 +13,16 @@ while True:
         # To see all report data, uncomment the line below
         if report['class'] == 'TPV':
             if hasattr(report, 'time'):
-                print("\n")
                 if menu == 1:
                     print("Latitude:",report.lat)
                     print("Longitude:",report.lon)
                     print("Time:",report.time)
                 if menu == 2:
                     os.system(r'cgps -s')
-                if menu != 1 or 2:
+                if menu < 0:
+                    print("It has to be either a 1 or a 2, reboot the script.")
+                    quit()
+                if menu > 2:
                     print("It has to be either a 1 or a 2, reboot the script.")
                     quit()
     except KeyError:
