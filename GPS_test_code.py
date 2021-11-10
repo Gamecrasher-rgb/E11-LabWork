@@ -12,10 +12,16 @@ while True:
         # To see all report data, uncomment the line below
         if report['class'] == 'TPV':
             if hasattr(report, 'time'):
-                #print("Latitude:",report.lat)
-                #print("Longitude:",report.lon)
-                #print("Time:",report.time)
-                os.system(r'cgps -s')
+                menu = input("1. Print Latitude, Longitude, and Time\n2. Menu Screen")
+                if menu == 1:
+                    print("Latitude:",report.lat)
+                    print("Longitude:",report.lon)
+                    print("Time:",report.time)
+                if menu == 2:
+                    os.system(r'cgps -s')
+                else:
+                    print("It has to be either a 1 or a 2, reboot the script.")
+                    quit()
     except KeyError:
         pass
     except KeyboardInterrupt:
