@@ -20,7 +20,7 @@ while True:
                     print("Time:",report.time)
                 if menu == 2:
                     os.system(r'cgps -s')
-                else:
+                if menu != 1 or 2:
                     print("It has to be either a 1 or a 2, reboot the script.")
                     quit()
     except KeyError:
