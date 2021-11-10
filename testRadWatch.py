@@ -43,8 +43,8 @@ listaverageCPS = []
 listaverageCPM = []
 n = 0
 
-while n < run_time: 
-	time.sleep(sleep_time*60)
+while current_time < current_time+(run_time*60):
+	time.sleep(sleep_time)
 	averageCPM = counts
 	averageCPS = counts/60
 	listaverageCPS.append(averageCPS)
