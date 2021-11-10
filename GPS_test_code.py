@@ -1,4 +1,5 @@
 import gps
+import os
 
 # Listen on port 2947 (gpsd) of localhost
 session = gps.gps("localhost", "2947")
@@ -11,9 +12,10 @@ while True:
         # To see all report data, uncomment the line below
         if report['class'] == 'TPV':
             if hasattr(report, 'time'):
-                print("Latitude:",report.lat)
-                print("Longitude:",report.lon)
-                print("Time:",report.time)
+                #print("Latitude:",report.lat)
+                #print("Longitude:",report.lon)
+                #print("Time:",report.time)
+                os.system(r'cgps -s')
     except KeyError:
         pass
     except KeyboardInterrupt:
