@@ -12,7 +12,8 @@ while True:
         # To see all report data, uncomment the line below
         if report['class'] == 'TPV':
             if hasattr(report, 'time'):
-                menu = input("1. Print Latitude, Longitude, and Time\n2. Menu Screen")
+                menu = int(input("1. Print Latitude, Longitude, and Time\n2. Menu Screen\n"))
+                print("\n")
                 if menu == 1:
                     print("Latitude:",report.lat)
                     print("Longitude:",report.lon)
