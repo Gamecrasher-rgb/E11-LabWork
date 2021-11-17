@@ -31,10 +31,6 @@ ready_time = int(sys.argv[3])
 ready_time = 60*ready_time
 time.sleep(ready_time)
 
-start_time = time.time()
-stop_time = start_time + run_time
-current_time = time.time()
-
 GPIO.add_event_detect(17, GPIO.BOTH, callback=callBack) 
 
 averageCPM = 0
@@ -43,7 +39,10 @@ listaverageCPS = []
 listaverageCPM = []
 n = 0
 
-while current_time < current_time+(run_time*60):
+current_time = time.time()
+stop_time = time.time()+(run_time*60)
+
+while current_time < stop_time:
 	time.sleep(sleep_time)
 	averageCPM = counts
 	averageCPS = counts/60
