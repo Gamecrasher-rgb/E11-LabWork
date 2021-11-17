@@ -44,12 +44,13 @@ stop_time = time.time()+(run_time*60)
 
 while current_time < stop_time:
 	time.sleep(sleep_time)
+	times.append(time.time())
 	averageCPM = counts
 	averageCPS = counts/60
 	listaverageCPS.append(averageCPS)
 	listaverageCPM.append(averageCPM)
 	counts = 0
-	n+=1
+	current_time = time.time()
 
 GPIO.cleanup()
 
