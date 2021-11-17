@@ -2,10 +2,7 @@ import gps
 import os
 
 # Listen on port 2947 (gpsd) of localhost
-os.system(r"sudo systemctl stop gpsd.socket")
-os.system(r"sudo systemctl disable gpsd.socket")
-os.system(r"sudo systemctl enable gpsd.socket")
-os.system(r"sudo systemctl start gpsd.socket")
+os.system(r"sudo killall gpsd")
 os.system(r"sudo gpsd /dev/ttyUSB0 -F /var/run/gpsd.sock")
 session = gps.gps("localhost", "2947")
 session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
