@@ -55,7 +55,7 @@ listaverageCPM = []
 n = 0
 
 current_time = time.time()
-run_time = time.time() + run_time
+run_time = time.time() + (run_time*60)
 
 while current_time < run_time: 
     time.sleep(sleep_time)
