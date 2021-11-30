@@ -58,7 +58,7 @@ current_time = time.time()
 run_time = time.time() + run_time
 
 while current_time < run_time: 
-    time.sleep(sleep_time*60)
+    time.sleep(sleep_time)
 
     current_time = time.time()
     times.append(current_time)
