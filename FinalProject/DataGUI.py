@@ -14,4 +14,3 @@ def DAQGUI():
     SendFileName = PushButton(app, command=fileName, text="Enter")
     app.display()
     return str(file_name.value),int(run_box.value),int(sleep_box.value),int(ready_box.value)
-print(DAQGUI())
