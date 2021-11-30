@@ -90,7 +90,6 @@ while current_time < run_time:
     listaverageCPM.append(averageCPM)
     counts = 0
     n+=1 
-    current_time = time.time()
 
 GPIO.cleanup()
 
