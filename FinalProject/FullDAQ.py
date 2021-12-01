@@ -99,7 +99,7 @@ times_int = []
 
 times_int = np.array(times, dtype='int')
 
-filename = 'home/pi/data/'+ filename + '.csv'
+filename = '/home/pi/data/'+ filename + '.csv'
 
 print("File Name:",filename)
 
