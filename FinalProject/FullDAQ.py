@@ -43,8 +43,8 @@ bme280.sea_level_pressure = 1013.25
 
 filename, run_time,sleep_time,ready_time = DAQGUI()
 print("Program Starting\nRunning for:",run_time,"minutes.")
-#progressBar_thread = threading.Thread(target = progressBar)
-#progressBar_thread.start()
+progressBar_thread = threading.Thread(target = progressBar, daemon=True, kwargs={'run_time':int(run_time)})
+progressBar_thread.start()
 ready_time = 60*ready_time
 time.sleep(ready_time)
 
@@ -97,6 +97,7 @@ while current_time < run_time:
     counts = 0
     n+=1 
 
+progressBar_thread.join()
 GPIO.cleanup()
 
 print("Done!")
