@@ -12,6 +12,10 @@ import datetime as dt
 import RPi.GPIO as GPIO  
 from guizero import *
 from DataGUI import *
+import threading
+from tkinter import *
+from tkinter.ttk import *
+from ProgressBar import progressBar
 #endregion
 
 GPIO.setmode(GPIO.BCM)   
@@ -39,6 +43,17 @@ bme280.sea_level_pressure = 1013.25
 
 filename, run_time,sleep_time,ready_time = DAQGUI()
 print("Program Starting\nRunning for:",run_time,"minutes.")
+class prgBar(threading.Thread):
+    global run_time
+    def __init__(self, progressBar):
+        threading.Thread.__init__(self)
+        self.runnable = progressBar
+
+    def run(self):
+        self.runnable(run_time)
+
+progressBar_thread = prgBar(progressBar)
+progressBar_thread.start()
 ready_time = 60*ready_time
 time.sleep(ready_time)
 
