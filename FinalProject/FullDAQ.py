@@ -12,7 +12,7 @@ import datetime as dt
 import RPi.GPIO as GPIO  
 from guizero import *
 from DataGUI import *
-import threading
+#import threading
 from tkinter import *
 from tkinter.ttk import *
 from ProgressBar import progressBar
