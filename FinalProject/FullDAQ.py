@@ -99,13 +99,7 @@ times_int = []
 
 times_int = np.array(times, dtype='int')
 
-dateCreation = dt.datetime.now()
-dateCreation = str(dateCreation.replace(microsecond = 0))
-def remove(string):
-    return string.replace(" ", "--")
-date = remove(dateCreation)
-
-filename = filename + '.csv'
+filename = 'home/pi/data/'+ filename + '.csv'
 
 print("File Name:",filename)
 
