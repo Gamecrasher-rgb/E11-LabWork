@@ -12,6 +12,6 @@ def progressBar(run_time):
     pb1.pack(expand=True)
     n=0
     pb1.start(run_time*10*60)
-    pb1.step(300/run_time)
+    ws.after(run_time*60*1000,ws.destroy)
     ws.mainloop()
-progressBar(3)
+progressBar(2)
