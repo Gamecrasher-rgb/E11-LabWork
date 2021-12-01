@@ -2,7 +2,7 @@ from guizero import *
 def DAQGUI():
     def fileName():
         app.destroy()
-    app = App(title='Data Acquisition',width='600',height='600')
+    app = App(title='Data Acquisition',width='400',height='300')
     file_message = Text(app, text="Enter what you wish for the data file to be called")
     file_name = TextBox(app)
     run_time = Text(app,text="Enter the Run Time")
