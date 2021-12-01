@@ -38,7 +38,7 @@ pm10 = []
 bme280.sea_level_pressure = 1013.25
 
 filename, run_time,sleep_time,ready_time = DAQGUI()
-
+print("Program Starting\nRunning for:",run_time,"minutes.")
 ready_time = 60*ready_time
 time.sleep(ready_time)
 
