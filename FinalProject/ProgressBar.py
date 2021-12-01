@@ -4,7 +4,6 @@ from tkinter.ttk import *
 import time
 import sys
 import threading
-from typing_extensions import runtime
 def progressBar(run_time):
     ws = Tk()
     ws.title('Data Acquisition')
